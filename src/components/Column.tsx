@@ -1,6 +1,5 @@
 import { AddIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
-
 import {
   Badge,
   Box,
@@ -49,13 +48,14 @@ function Column({ column }: { column: ColumnType }) {
   ));
 
   return (
-    <Box>
+    <Box width={{ base: "500px", md: "230px" }} height={{ base: "500px", md: "500px" }} margin="0 10px">
       <Heading fontSize="md" mb={4} letterSpacing="wide">
         <Badge
           px={2}
           py={1}
           rounded="lg"
           colorScheme={ColumnColorScheme[column]}
+         
         >
           {column}
         </Badge>
@@ -65,18 +65,18 @@ function Column({ column }: { column: ColumnType }) {
         w="full"
         color={useColorModeValue('gray.500', 'gray.400')}
         bgColor={useColorModeValue('gray.100', 'gray.700')}
-        _hover={{ bgColor: useColorModeValue('gray.200', 'gray.600') }}
+        _hover={{ bgColor: useColorModeValue('green.100', 'gray.600') }}
         py={2}
         variant="solid"
         onClick={addEmptyTask}
         colorScheme="black"
         aria-label="add-task"
         icon={<AddIcon />}
+       
       />
       <Stack
         ref={dropRef}
         direction={{ base: 'row', md: 'column' }}
-        h={{ base: 300, md: 600 }}
         p={4}
         mt={2}
         spacing={4}
@@ -85,6 +85,7 @@ function Column({ column }: { column: ColumnType }) {
         boxShadow="md"
         overflow="auto"
         opacity={isOver ? 0.85 : 1}
+        background={useColorModeValue("rgba(255, 255, 255, 0.8)", "rgba(0, 0, 0, 0.8)")}
       >
         {ColumnTasks}
       </Stack>

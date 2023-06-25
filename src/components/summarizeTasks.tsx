@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
-const API_KEY = process.env.VITE_OPENAI_API_KEY;
+const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 
 interface Task {
     title: string;

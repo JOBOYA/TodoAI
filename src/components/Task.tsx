@@ -1,10 +1,11 @@
+import React, { useState } from 'react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { Box, IconButton, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
-import { memo } from 'react';
 import { useTaskDragAndDrop } from '../hooks/useTaskDragAndDrop';
 import { TaskModel } from '../utils/models';
 import { AutoResizeTextarea } from './AutoResizeTextArea';
+import '../style.css'
 
 type TaskProps = {
   index: number;
@@ -26,13 +27,18 @@ function Task({
     handleDropHover,
   );
 
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newTitle = e.target.value;
     handleUpdate(task.id, { ...task, title: newTitle });
   };
 
   const handleDeleteClick = () => {
-    handleDelete(task.id);
+    setIsDeleting(true);
+    setTimeout(() => {
+      handleDelete(task.id);
+    }, 500); // correspond à la durée de l'animation
   };
 
   return (
@@ -54,6 +60,7 @@ function Task({
         userSelect="none"
         bgColor={task.color}
         opacity={isDragging ? 0.5 : 1}
+        className={isDeleting ? 'move-to-trash' : ''}
       >
         <IconButton
           position="absolute"
@@ -88,7 +95,8 @@ function Task({
     </ScaleFade>
   );
 }
-export default memo(Task, (prev, next) => {
+
+export default React.memo(Task, (prev, next) => {
   if (
     _.isEqual(prev.task, next.task) &&
     _.isEqual(prev.index, next.index) &&
