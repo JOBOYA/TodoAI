@@ -2,13 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Button, Textarea, Box, Flex } from "@chakra-ui/react";
 import { summarizeTasks } from './summarizeTasks';
 import useTaskCollection from '../hooks/useTaskCollection';
+import useColumnTasks from '../hooks/useColumnTasks';
 
 const SummarizeButton = () => {
     // Récupérer le tableau de tâches depuis le contexte
     const [taskCollection] = useTaskCollection();
+   
 
     // Combiner toutes les tâches de différentes colonnes en un seul tableau
     const tasks = Object.values(taskCollection).flat();
+    // Ajouter les tâches de la colonne "En cours" au tableau de tâches
+    
+
 
     const [summary, setSummary] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -65,19 +70,21 @@ const SummarizeButton = () => {
                 {summary && <Button onClick={handleClear}>Effacer le résumé</Button>}
             </Flex>
             <Textarea
-                value={isLoading ? `Chargement${loadingDots}` : summary}
-                placeholder="Le résumé apparaîtra ici..."
-                isReadOnly
-                borderColor="transparent"
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                textAlign="justify"
-                fontSize="xl"
-                fontWeight="bold"
-                mt={5}
-                textTransform={summary ? 'uppercase' : 'none'}
-            />
+    value={isLoading ? `Chargement${loadingDots}` : summary}
+    placeholder="Le résumé apparaîtra ici..."
+    isReadOnly
+    borderColor="black"
+    display="flex"
+    justifyContent="center"
+    alignItems="center"
+    textAlign="justify"
+    fontSize="xl"
+    width={{ base: '90%', md: '600px' }} // 90% de la largeur de l'écran sur les petits écrans, 600px sur les écrans moyens et plus grands
+    height={{ base: '200px', md: '400px' }} // 200px de hauteur sur les petits écrans, 400px sur les écrans moyens et plus grands
+    mt={5}
+    mx="auto" // Centrer horizontalement
+/>
+
         </Box>
     );
 };

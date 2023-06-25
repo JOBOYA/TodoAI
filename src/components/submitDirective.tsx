@@ -11,18 +11,15 @@ interface TaskCollection {
     [key: string]: Task[];
 }
 
-export async function summarizeTasks(taskCollection: TaskCollection, tasks: string[]): Promise<string> {
+
+
+export async function submitDirective(directive: string): Promise<string> {
     try {
-        const inProgressTasks = taskCollection['In Progress'].map((task: Task) => task.title).join(', ');
-        const blockedTasks = taskCollection['Blocked'].map((task: Task) => task.title).join(', ');
-        const completedTasks = taskCollection['Completed'].map((task: Task) => task.title).join(', ');
         const response = await axios.post(OPENAI_API_URL, {
             model: 'gpt-3.5-turbo',
             messages: [
                 { role: 'system', content: 'You are a helpful assistant.' },
-                { role: 'user', content: `Fournissez un état des tâches,sans poser de questions. En cours: ${inProgressTasks}. Bloquées: ${blockedTasks}. Terminées: ${completedTasks}.` }
-
-
+                { role: 'user', content: directive }
             ]
         }, {
             headers: {
@@ -34,6 +31,6 @@ export async function summarizeTasks(taskCollection: TaskCollection, tasks: stri
         return response.data.choices[0].message.content;
     } catch (error) {
         console.error('Error:', error);
-        return 'Une erreur est survenue lors de la récupération du résumé.';
+        return 'Une erreur est survenue lors de la soumission de la directive.';
     }
 }
