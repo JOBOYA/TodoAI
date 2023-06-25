@@ -48,14 +48,13 @@ function Column({ column }: { column: ColumnType }) {
   ));
 
   return (
-    <Box width={{ base: "500px", md: "230px" }} height={{ base: "500px", md: "500px" }} margin="0 10px">
+    <Box  justifyContent="space-between" flexWrap="wrap" >
       <Heading fontSize="md" mb={4} letterSpacing="wide">
         <Badge
           px={2}
           py={1}
           rounded="lg"
           colorScheme={ColumnColorScheme[column]}
-         
         >
           {column}
         </Badge>
@@ -72,7 +71,6 @@ function Column({ column }: { column: ColumnType }) {
         colorScheme="black"
         aria-label="add-task"
         icon={<AddIcon />}
-       
       />
       <Stack
         ref={dropRef}
