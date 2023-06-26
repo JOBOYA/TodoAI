@@ -24,7 +24,14 @@ export async function summarizeTasks(taskCollection: TaskCollection, _tasks: str
             model: 'gpt-3.5-turbo',
             messages: [
                 { role: 'system', content: 'You are a helpful assistant.' },
-                { role: 'user', content: `Fourni moi un résumé de mes tâches. ajoute des emojis devant chaque résumé. A faire: ${todoTasks}. En cours: ${inProgressTasks}. Bloqué: ${blockedTasks}. Terminé:  ${completedTasks}.` }
+                { role: 'user', content: `Fourni moi un résumé de mes tâches. ajoute des emojis devant chaque résumé. A faire: ${todoTasks}. En cours: ${inProgressTasks}. Bloqué: ${blockedTasks}. Terminé:  ${completedTasks}.
+             Prédictions des délais pour les taches.
+            
+             Assistance à la planification
+             Suggestions de tâches.
+
+            
+                ` }
 
 
             ]

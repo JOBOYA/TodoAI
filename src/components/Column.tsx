@@ -55,7 +55,7 @@ function Column({ column }: { column: ColumnType }) {
   ));
 
   return (
-    <Box justifyContent="space-between" flexWrap="wrap">
+    <Box justifyContent="space-between" flexWrap="wrap" >
       <Heading fontSize="md" mb={4} letterSpacing="wide">
         <Badge
           px={2}
@@ -84,6 +84,7 @@ function Column({ column }: { column: ColumnType }) {
         direction={{ base: 'row', md: 'column' }}
         p={4}
         mt={2}
+       
         spacing={4}
         bgColor={useColorModeValue('gray.50', 'gray.900')}
         rounded="lg"
