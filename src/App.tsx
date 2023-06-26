@@ -12,8 +12,21 @@ import Column from "./components/Column";
 import DarkModeIconButton from "./components/DarkModeIconButton";
 import { ColumnType } from "./utils/enums";
 import SummarizeButton from "./components/SummarizeButton";
+import 'mobile-drag-drop/default.css';
+import {polyfill} from 'mobile-drag-drop';
+import 'mobile-drag-drop/scroll-behaviour';
+import { useEffect } from 'react';
+
+
 
 function App() {
+
+  
+
+useEffect(() => {
+  polyfill();
+}, []);
+
   return (
     <header>
       <Box
