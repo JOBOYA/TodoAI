@@ -22,6 +22,7 @@ function useColumnTasks(column: ColumnType) {
           'In Progress': [],
           Blocked: [],
           Completed: [],
+
         };
         for (const column in allTasks) {
           filteredTasks[column as ColumnType] = allTasks[column as ColumnType].filter((task) =>

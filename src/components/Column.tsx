@@ -13,11 +13,18 @@ import useColumnTasks from '../hooks/useColumnTasks';
 import { ColumnType } from '../utils/enums';
 import Task from './Task';
 
+const ColumnLabels: Record<ColumnType, string> = {
+  [ColumnType.TO_DO]: 'À faire',
+  [ColumnType.IN_PROGRESS]: 'En cours',
+  [ColumnType.BLOCKED]: 'Bloqué',
+  [ColumnType.COMPLETED]: 'Terminé',
+};
+
 const ColumnColorScheme: Record<ColumnType, string> = {
-  Todo: 'gray',
-  'In Progress': 'blue',
-  Blocked: 'red',
-  Completed: 'green',
+  [ColumnType.TO_DO]: 'gray',
+  [ColumnType.IN_PROGRESS]: 'blue',
+  [ColumnType.BLOCKED]: 'red',
+  [ColumnType.COMPLETED]: 'green',
 };
 
 function Column({ column }: { column: ColumnType }) {
@@ -48,7 +55,7 @@ function Column({ column }: { column: ColumnType }) {
   ));
 
   return (
-    <Box  justifyContent="space-between" flexWrap="wrap" >
+    <Box justifyContent="space-between" flexWrap="wrap">
       <Heading fontSize="md" mb={4} letterSpacing="wide">
         <Badge
           px={2}
@@ -56,7 +63,7 @@ function Column({ column }: { column: ColumnType }) {
           rounded="lg"
           colorScheme={ColumnColorScheme[column]}
         >
-          {column}
+          {ColumnLabels[column]}
         </Badge>
       </Heading>
       <IconButton
@@ -83,7 +90,7 @@ function Column({ column }: { column: ColumnType }) {
         boxShadow="md"
         overflow="auto"
         opacity={isOver ? 0.85 : 1}
-        background={useColorModeValue("rgba(255, 255, 255, 0.8)", "rgba(0, 0, 0, 0.8)")}
+        background={useColorModeValue('rgba(255, 255, 255, 0.8)', 'rgba(0, 0, 0, 0.8)')}
       >
         {ColumnTasks}
       </Stack>

@@ -19,30 +19,17 @@ const SummarizeButton = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [loadingDots, setLoadingDots] = useState('');
 
-    // Fonction pour ajouter des emojis au résumé
-    const addEmojis = (text: string) => {
-        // Utiliser des emojis personnalisés ou prédéfinis selon vos besoins
-        const emojis = [
-            '👍',
-            '👌',
-            '👏',
-        ];
-
-        // Ajouter un emoji aléatoire au texte
-        const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-        return `${text} ${randomEmoji}`;
-    };
 
     const handleClick = async () => {
         setIsLoading(true);
         const result = await summarizeTasks(taskCollection, tasks.map(task => task.title));
         // Ajouter des emojis au résumé avant de le définir dans l'état
-        const resultWithEmojis = addEmojis(result);
+       
 
         // Créer un effet de frappe en ajoutant chaque caractère avec un délai
-        for (let i = 0; i < resultWithEmojis.length; i++) {
+        for (let i = 0; i < result.length; i++) {
             setTimeout(() => {
-                setSummary(prevSummary => prevSummary + resultWithEmojis.charAt(i));
+                setSummary(prevSummary => prevSummary + result[i]);
             }, 25 * i); // Vous pouvez ajuster le délai en modifiant la valeur multipliée par i
         }
         setIsLoading(false);

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ColumnType } from '../utils/enums';
 
 const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
 const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
@@ -11,16 +12,19 @@ interface TaskCollection {
     [key: string]: Task[];
 }
 
-export async function summarizeTasks(taskCollection: TaskCollection, tasks: string[]): Promise<string> {
+export async function summarizeTasks(taskCollection: TaskCollection, _tasks: string[]): Promise<string> {
     try {
-        const inProgressTasks = taskCollection['In Progress'].map((task: Task) => task.title).join(', ');
-        const blockedTasks = taskCollection['Blocked'].map((task: Task) => task.title).join(', ');
-        const completedTasks = taskCollection['Completed'].map((task: Task) => task.title).join(', ');
+       
+        const todoTasks = taskCollection[ColumnType.TO_DO].map((task: Task) => task.title).join(', ');
+        const inProgressTasks = taskCollection[ColumnType.IN_PROGRESS].map((task: Task) => task.title).join(', ');
+        const blockedTasks = taskCollection[ColumnType.BLOCKED].map((task: Task) => task.title).join(', ');
+        const completedTasks = taskCollection[ColumnType.COMPLETED].map((task: Task) => task.title).join(', ');
+
         const response = await axios.post(OPENAI_API_URL, {
             model: 'gpt-3.5-turbo',
             messages: [
                 { role: 'system', content: 'You are a helpful assistant.' },
-                { role: 'user', content: `Fournissez un état des tâches,sans poser de questions. En cours: ${inProgressTasks}. Bloquées: ${blockedTasks}. Terminées: ${completedTasks}.` }
+                { role: 'user', content: `Fourni moi un résumé de mes tâches. ajoute des emojis devant chaque résumé. A faire: ${todoTasks}. En cours: ${inProgressTasks}. Bloqué: ${blockedTasks}. Terminé:  ${completedTasks}.` }
 
 
             ]
