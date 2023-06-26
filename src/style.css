@@ -12,3 +12,8 @@
 .move-to-trash {
     animation: moveToTrash 0.5s forwards;
 }
+
+
+.dragged-ghost {
+    display: none !important;
+  }

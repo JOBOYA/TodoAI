@@ -27,6 +27,8 @@ function Task({
     handleDropHover,
   );
 
+ 
+
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -60,7 +62,7 @@ function Task({
         userSelect="none"
         bgColor={task.color}
         opacity={isDragging ? 0.5 : 1}
-        className={isDeleting ? 'move-to-trash' : ''}
+        className={`task ${isDragging ? "dragged-ghost" : ""} ${isDeleting ? "move-to-trash" : ""}`}
       >
         <IconButton
           position="absolute"
